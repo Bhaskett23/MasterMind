@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace MasterMind
 {
@@ -11,16 +9,70 @@ namespace MasterMind
 
         public MasterMind()
         {
-       //     CreateCode();
+            CreateCode();
         }
 
         public string RunCode(string input)
         {
-           if(!ValidateInput(input))
+
+            if (!ValidateInput(input))
             {
                 return "Error with inputed code the code must be 4 numbers between 1 and 6";
             }
-            return "code is good";
+            return Evaluate(input);//"code is good";
+        }
+
+        private string Evaluate(string input)
+        {
+            string result = "";
+
+            if (input.Equals(code))
+            {
+                return "++++";
+            }
+
+
+            for(int i = 0; i <=3; i++)
+            {
+                if(input[i] == code[i])
+                {
+                    result += "+";
+                }
+                else if(code.Contains(input[i]))
+                {
+                    List<int> indexsToCheck = new List<int>();
+                    string d = code;
+                    int index = d.IndexOf(input[i]);
+
+                    while(index > -1)
+                    {                    
+                        indexsToCheck.Add(index);
+                        index = d.IndexOf(input[i], index + 1);
+                    }
+                    bool needDash = false;
+                    foreach(int x in indexsToCheck)
+                    {
+                        if(input[x] != code[x])
+                        {
+                            needDash = true;
+                            break;
+                        }
+                    }
+                    if(needDash)
+                    {
+                        result += "-";
+                    }
+                    else
+                    {
+                        result += " ";
+                    }
+                }
+                else
+                {
+                    result += " ";
+                }
+            }
+            return result;
         }
 
         private void CreateCode()
@@ -43,7 +95,14 @@ namespace MasterMind
 
             foreach(char c in input)
             {
-                if(!char.IsDigit(c))
+                int value;
+
+                if(!int.TryParse(c.ToString(), out value))
+                {
+                    return false;
+                }
+
+                if(value > 6 || value == 0)
                 {
                     return false;
                 }
