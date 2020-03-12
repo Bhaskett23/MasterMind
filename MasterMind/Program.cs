@@ -9,22 +9,38 @@ namespace MasterMind
             Console.WriteLine("Welcome to MasterMind");
             MasterMind masterMind = new MasterMind();
             int tries = 1;
-            while (tries <= 10)
+            bool keepPlaying = true;
+            while(keepPlaying)
             {
-                string input = Console.ReadLine();
-                string result = masterMind.RunCode(input);
-                Console.WriteLine(result);
-                if(result == "++++")
+                while (tries <= 10)
                 {
-                    Console.WriteLine("Congrats you guessed the code correctly");
-                    break;
+                    string input = Console.ReadLine();
+                    string result = masterMind.RunCode(input);
+                    Console.WriteLine(result);
+                    if(result == "++++")
+                    {
+                        Console.WriteLine("Congrats you guessed the code correctly");
+                        break;
+                    }
+                    else if (result.Length <= 4)
+                    {
+                        tries++;
+                        Console.WriteLine("You have {0} tries remaining", 10-tries);
+                    }
                 }
-                else if (result.Length == 4)
+                Console.WriteLine("Do you want to play again y/n?");
+                string playAgain = Console.ReadLine();
+                if(playAgain == "y")
                 {
-                    Console.WriteLine("You have {0} tries remaining", 10-tries);
-                    tries++;
+                    masterMind = new MasterMind();
+                    tries = 1;
                 }
-            }            
+                else
+                {
+                    keepPlaying = false;
+                }
+            }
+                  
         }
     }
 }

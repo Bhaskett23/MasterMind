@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace MasterMind
 {
@@ -30,6 +31,7 @@ namespace MasterMind
                 return "++++";
             }
 
+
             for(int i = 0; i <=3; i++)
             {
                 if(input[i] == code[i])
@@ -38,7 +40,32 @@ namespace MasterMind
                 }
                 else if(code.Contains(input[i]))
                 {
-                    result += "-";
+                    List<int> indexsToCheck = new List<int>();
+                    string d = code;
+                    int index = d.IndexOf(input[i]);
+
+                    while(index > -1)
+                    {                    
+                        indexsToCheck.Add(index);
+                        index = d.IndexOf(input[i], index + 1);
+                    }
+                    bool needDash = false;
+                    foreach(int x in indexsToCheck)
+                    {
+                        if(input[x] != code[x])
+                        {
+                            needDash = true;
+                            break;
+                        }
+                    }
+                    if(needDash)
+                    {
+                        result += "-";
+                    }
+                    else
+                    {
+                        result += " ";
+                    }
                 }
                 else
                 {
