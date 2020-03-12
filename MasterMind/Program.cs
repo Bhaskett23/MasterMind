@@ -24,8 +24,8 @@ namespace MasterMind
                     }
                     else if (result.Length <= 4)
                     {
-                        tries++;
                         Console.WriteLine("You have {0} tries remaining", 10-tries);
+                        tries++;
                     }
                 }
                 Console.WriteLine("Do you want to play again y/n?");

@@ -95,7 +95,14 @@ namespace MasterMind
 
             foreach(char c in input)
             {
-                if(!char.IsDigit(c))
+                int value;
+
+                if(!int.TryParse(c.ToString(), out value))
+                {
+                    return false;
+                }
+
+                if(value > 6 || value == 0)
                 {
                     return false;
                 }
