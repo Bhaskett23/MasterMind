@@ -14,7 +14,7 @@ namespace MasterMind
                 String input = Console.ReadLine();
                 string result = masterMind.RunCode(input);
                 Console.WriteLine(result);
-                if (result.Length != 4)
+                if (result.Length == 4)
                 {
                     tries++;
                 }                
