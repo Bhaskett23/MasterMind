@@ -4,9 +4,13 @@ namespace MasterMind
 {
     class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Welcome to MasterMind");
+            MasterMind masterMind = new MasterMind();
+            String input = Console.ReadLine();
+            string result = masterMind.RunCode(input);
+            Console.WriteLine(result);
         }
     }
 }
